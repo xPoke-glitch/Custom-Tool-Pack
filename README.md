@@ -3,7 +3,7 @@
 
 Complete pack of my Unity Custom Tools.
 
-You can download the Unity package here: [Pack Download](https://github.com/xPoke-glitch/Custom-Tools-Pack/tree/main/Pack)
+You can download the Unity package here: [Download Package](https://github.com/xPoke-glitch/Custom-Tools-Pack/tree/main/Pack)
 
 ## Current Pack List
 * Animation Creator Tool: https://github.com/xPoke-glitch/Animation-Creator-Tool
