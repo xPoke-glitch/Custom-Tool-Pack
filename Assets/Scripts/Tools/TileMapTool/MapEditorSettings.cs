@@ -6,7 +6,7 @@ using UnityEditor;
 namespace xPoke.Tools.TileMapEditor
 {
     public // Create a new type of Settings Asset.
-class MapEditorSettings : ScriptableObject
+    class MapEditorSettings : ScriptableObject
     {
         public const string k_MyCustomSettingsPath = "Assets/Editor/MapEditorSettings.asset";
 
