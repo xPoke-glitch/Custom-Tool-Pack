@@ -45,7 +45,6 @@ namespace xPoke.Tools.TileMapEditor
 
         private void SaveMatrix()
         {
-            Debug.Log("SAVE " + (_tileMatrix == null));
             _settings.SetTiles(_tileMatrix);
         }
 

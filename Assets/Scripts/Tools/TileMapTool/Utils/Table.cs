@@ -59,9 +59,6 @@ public class Table<T> where T : class
     {
         T[,] matrix = new T[xDimension, yDimension];
 
-        Debug.Log("Array Length " + flatArray.Length);
-        Debug.Log("Matrix dim " + xDimension + " " + yDimension);
-
         for (var x = 0; x < xDimension; x++)
         {
             for (var y = 0; y < yDimension; y++)

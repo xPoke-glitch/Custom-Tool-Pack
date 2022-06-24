@@ -8,7 +8,7 @@ namespace xPoke.Tools.TileMapEditor
     public // Create a new type of Settings Asset.
     class MapEditorSettings : ScriptableObject
     {
-        public const string k_MyCustomSettingsPath = "Assets/Editor/MapEditorSettings.asset";
+        public const string k_MyCustomSettingsPath = "Assets/Editor/TileMapTool/MapEditorSettings.asset";
 
         public Table<MapEditorTile> Tiles;
 
@@ -17,6 +17,16 @@ namespace xPoke.Tools.TileMapEditor
 
         internal static MapEditorSettings GetOrCreateSettings()
         {
+            if (!AssetDatabase.IsValidFolder("Assets/Editor"))
+            {
+
+                AssetDatabase.CreateFolder("Assets", "Editor");
+                AssetDatabase.CreateFolder("Assets/Editor", "TileMapTool");
+            }
+            else if (!AssetDatabase.IsValidFolder("Assets/Editor/TileMapTool"))
+            {
+                AssetDatabase.CreateFolder("Assets/Editor", "TileMapTool");
+            }
             var settings = AssetDatabase.LoadAssetAtPath<MapEditorSettings>(k_MyCustomSettingsPath);
             if (settings == null)
             {
