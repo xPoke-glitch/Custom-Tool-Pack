@@ -3,61 +3,64 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
 
-#if UNITY_EDITOR
-public partial class MapEditor : EditorWindow
+namespace xPoke.Tools.TileMapEditor
 {
-    private string _tileToAddName;
-    private Color _tileToAddColor;
-
-    private void DrawAddTileSection()
+#if UNITY_EDITOR
+    public partial class TileMapEditor : EditorWindow
     {
-        GUILayout.Label("Add Tile", EditorStyles.boldLabel);
+        private string _tileToAddName;
+        private Color _tileToAddColor;
 
-        EditorGUILayout.BeginVertical();
-
-        EditorGUILayout.BeginHorizontal();
-
-        _tileToAddName = EditorGUILayout.TextField(_tileToAddName);
-        _tileToAddColor = EditorGUILayout.ColorField(_tileToAddColor);
-        _tileToAddColor.a = 1.0f;
-        EditorGUILayout.EndHorizontal();
-
-        if (GUILayout.Button("Add"))
+        private void DrawAddTileSection()
         {
-            if (!string.IsNullOrEmpty(_tileToAddName))
+            GUILayout.Label("Add Tile", EditorStyles.boldLabel);
+
+            EditorGUILayout.BeginVertical();
+
+            EditorGUILayout.BeginHorizontal();
+
+            _tileToAddName = EditorGUILayout.TextField(_tileToAddName);
+            _tileToAddColor = EditorGUILayout.ColorField(_tileToAddColor);
+            _tileToAddColor.a = 1.0f;
+            EditorGUILayout.EndHorizontal();
+
+            if (GUILayout.Button("Add"))
             {
-                GameObject testObj = AssetDatabase.LoadAssetAtPath<GameObject>("Assets/Prefabs/" + _tileToAddName + ".prefab");
-                if(testObj != null)
+                if (!string.IsNullOrEmpty(_tileToAddName))
                 {
-                    if (_optionsDictionary.ContainsKey(_tileToAddName))
+                    GameObject testObj = AssetDatabase.LoadAssetAtPath<GameObject>("Assets/Prefabs/" + _tileToAddName + ".prefab");
+                    if (testObj != null)
                     {
-                        EditorUtility.DisplayDialog("Tile Already Exist", "The tile is already in the dropdown list", "Confirm");
+                        if (_optionsDictionary.ContainsKey(_tileToAddName))
+                        {
+                            EditorUtility.DisplayDialog("Tile Already Exist", "The tile is already in the dropdown list", "Confirm");
+                        }
+                        else
+                        {
+                            _settings = MapEditorSettings.GetOrCreateSettings();
+                            MapEditorTile tileTemp = new MapEditorTile(_tileToAddColor, AssetDatabase.LoadAssetAtPath<GameObject>("Assets/Prefabs/" + _tileToAddName + ".prefab"));
+                            _optionsDictionary.Add(_tileToAddName, tileTemp);
+                            _options.Add(_tileToAddName);
+
+                            _settings.AddTilePrefab(_tileToAddName, tileTemp);
+
+                            _tileToAddColor = Color.black;
+                            _tileToAddName = "";
+                        }
                     }
                     else
                     {
-                        _settings = MapEditorSettings.GetOrCreateSettings();
-                        MapEditorTile tileTemp = new MapEditorTile(_tileToAddColor, AssetDatabase.LoadAssetAtPath<GameObject>("Assets/Prefabs/" + _tileToAddName + ".prefab"));
-                        _optionsDictionary.Add(_tileToAddName, tileTemp);
-                        _options.Add(_tileToAddName);
-
-                        _settings.AddTilePrefab(_tileToAddName, tileTemp);
-
-                        _tileToAddColor = Color.black;
-                        _tileToAddName = "";
+                        EditorUtility.DisplayDialog("Tile Not Found", "The tile is not found in Assets/Prefabs - Please check the folder", "Confirm");
                     }
                 }
                 else
                 {
-                    EditorUtility.DisplayDialog("Tile Not Found", "The tile is not found in Assets/Prefabs - Please check the folder", "Confirm");
+                    EditorUtility.DisplayDialog("Tile Not Found", "The tile name can not be null or empty", "Confirm");
                 }
             }
-            else
-            {
-                EditorUtility.DisplayDialog("Tile Not Found", "The tile name can not be null or empty", "Confirm");
-            }
-        }
 
-        EditorGUILayout.EndVertical();
+            EditorGUILayout.EndVertical();
+        }
     }
-}
 #endif
+}

@@ -3,38 +3,41 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
 
-#if UNITY_EDITOR
-public partial class MapEditor : EditorWindow
+namespace xPoke.Tools.TileMapEditor
 {
-   
-    [MenuItem("Tools/Map Editor")]
-    public static void StartEditor()
+#if UNITY_EDITOR
+    public partial class TileMapEditor : EditorWindow
     {
-        MapEditor mapEditorWindow = EditorWindow.GetWindow<MapEditor>("Map Editor", true);
-        mapEditorWindow.Show();
+
+        [MenuItem("Tools/Map Editor")]
+        public static void StartEditor()
+        {
+            TileMapEditor mapEditorWindow = EditorWindow.GetWindow<TileMapEditor>("Map Editor", true);
+            mapEditorWindow.Show();
+        }
+
+        void OnEnable()
+        {
+            // Find the "Hidden/Internal-Colored" shader, and cache it for use.
+            _material = new Material(Shader.Find("Hidden/Internal-Colored"));
+
+            InitializeMatrix();
+
+            PopulateDropDownOptions();
+        }
+
+        private void OnDisable()
+        {
+            SaveMatrix();
+        }
+
+        void OnGUI()
+        {
+            DrawGrid();
+            DrawDrawTileSection();
+            DrawAddTileSection();
+        }
+
     }
-
-    void OnEnable()
-    {
-        // Find the "Hidden/Internal-Colored" shader, and cache it for use.
-        _material = new Material(Shader.Find("Hidden/Internal-Colored"));
-
-        InitializeMatrix();
-
-        PopulateDropDownOptions();
-    }
-
-    private void OnDisable()
-    {
-        SaveMatrix();
-    }
-
-    void OnGUI()
-    {
-        DrawGrid();
-        DrawDrawTileSection();
-        DrawAddTileSection();
-    }
-
-}
 #endif
+}
