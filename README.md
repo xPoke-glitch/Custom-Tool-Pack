@@ -9,5 +9,5 @@ You can download the Unity package here: [Download Package](https://github.com/x
 * **Animation Creator Tool**: https://github.com/xPoke-glitch/Animation-Creator-Tool
 * **Tile Map Tool**: https://github.com/xPoke-glitch/Tile-Map-Tool
 * **Custom Sprite Importer**: https://github.com/xPoke-glitch/Custom-Sprite-Importer
-* **Custom Logs**: It's just a script, you can see how it looks like here: [Logs Example](https://github.com/xPoke-glitch/Tile-Map-Tool/blob/main/Screenshots/screen.png)
+* **Custom Logs**: It's just a script, you can see how it looks like here: [Logs Example](https://github.com/xPoke-glitch/Custom-Tools-Pack/blob/main/Screenshots/custom-logs.png)
 * ... (In development) ...
